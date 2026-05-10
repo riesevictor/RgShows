@@ -70,3 +70,62 @@ document.getElementById('search').addEventListener('input', (e) => {
     box.appendChild(b);
   });
 });
+
+function startSnowfall() {
+  const canvas = document.getElementById('snowfall');
+  const ctx = canvas.getContext('2d');
+  const flakes = [];
+  const flakeCount = 90;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function makeFlake() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 2.2 + 0.8,
+      vy: Math.random() * 0.8 + 0.25,
+      vx: (Math.random() - 0.5) * 0.3,
+      alpha: Math.random() * 0.45 + 0.35
+    };
+  }
+
+  function initFlakes() {
+    flakes.length = 0;
+    for (let i = 0; i < flakeCount; i += 1) flakes.push(makeFlake());
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    flakes.forEach(f => {
+      f.y += f.vy;
+      f.x += f.vx + Math.sin(f.y * 0.01) * 0.18;
+      if (f.y > canvas.height + 4) {
+        f.y = -4;
+        f.x = Math.random() * canvas.width;
+      }
+      if (f.x > canvas.width + 8) f.x = -8;
+      if (f.x < -8) f.x = canvas.width + 8;
+
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(235, 246, 255, ${f.alpha})`;
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  initFlakes();
+  draw();
+  window.addEventListener('resize', () => {
+    resize();
+    initFlakes();
+  });
+}
+
+startSnowfall();
