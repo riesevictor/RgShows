@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="css/glacier.css" />
 </head>
 <body>
+  <canvas id="snowfall" aria-hidden="true"></canvas>
+
   <header class="top-nav glass">
     <div class="brand">
       <img src="assets/glacier-logo.svg" alt="Glacier logo" class="logo" />
@@ -48,9 +50,7 @@
 
     <section class="player-wrap glass">
       <h2>Now Playing</h2>
-      <video id="player" controls preload="metadata" poster="https://images.unsplash.com/photo-1482192597420-48108c2b0845?q=80&w=1200&auto=format&fit=crop">
-        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4" />
-      </video>
+      <video id="player" controls preload="metadata" poster="https://images.unsplash.com/photo-1482192597420-48108c2b0845?q=80&w=1200&auto=format&fit=crop"></video>
       <p id="now-playing">Playing: Arctic Signal</p>
     </section>
   </main>
